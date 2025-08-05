@@ -1,0 +1,6 @@
+*.log
+*.css.map
+node_modules
+src/images
+package-lock.json
+index-bundle.js.map

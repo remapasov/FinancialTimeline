@@ -1,0 +1,103 @@
+body {
+  margin: 0;
+}
+
+header {
+  height: 90px;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .header {
+    text-align: center;
+    width: 100%;
+    max-width: 1000px;
+    height: 100%;
+    color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-family: 'Unfair', serif;
+
+    h1 {
+      font-size: 45px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .lang-option {
+      position: absolute;
+      right: 15px;
+      display: flex;
+
+      @media (width <= 480px) {
+        right: 5px;
+      }
+
+      .lang-title {
+        display: flex;
+        width: 70px;
+        align-items: center;
+        margin-right: 15px;
+        color: #fff;
+        font-family: 'Crimson', serif;
+        font-size: 18px;
+
+        @media (width <= 480px) {
+          display: none;
+        }
+      }
+    }
+  }
+
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: calc(100vh - 90px);
+  overflow: hidden;
+  letter-spacing: .1rem;
+}
+
+.hunt-map {
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+
+  &::before {
+    display: none;
+  }
+}
+
+/*.map-field {
+  background-size: cover;
+  background-image: url('../images/27_Hunt_screenshot_Update4.1.jpg');
+
+  &::before,
+  &::after,
+  .fog::before,
+  .fog::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat-x;
+
+    @media (width <= 480px) {
+      display: none;
+    }
+  }
+
+  .fog::before,
+  .fog::after {
+    left: 100%;
+  }*/
