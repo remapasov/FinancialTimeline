@@ -43,11 +43,11 @@ const App = () => {
 
   return (
     <>
-      <header>
+      {/*<header>
         <div className='header'>
           <h1>Financial Timeline</h1>
         </div>
-      </header>
+      </header>*/}
       <main>
         <div className='map-field'>
           {/*<Map mapImage={mapImage} mapType={mapType} filters={filters}/>*/}
