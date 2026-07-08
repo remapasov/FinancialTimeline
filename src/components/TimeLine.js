@@ -121,8 +121,8 @@ export const TimeLineComponent = (props) => {
   }
 
   const clickHandler = (props) => {
-    console.log(props)
-    setItem(items[props.item])
+    console.log(props);
+    setItem(items.find((el) => el.id === props.item));
   }
 
   return (
