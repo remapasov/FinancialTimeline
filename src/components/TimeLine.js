@@ -10,12 +10,16 @@ import * as XLSX from 'xlsx';
 import * as moment from 'moment';
 import { Button, Upload, Icon } from 'antd'
 import { AddEditForm } from './AddEditForm.js'
+import { Filters } from './Filters.js'
 import { UploadOutlined, RollbackOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 
 export const TimeLineComponent = (props) => {
   const [items, setItems] = useState([]);
   const [item, setItem] = useState(null);
   const [title, setTitle] = useState(null);
+  const [filters, setFilters] = useState({
+    onlyRefill: false
+  })
 
   const options = {
     order: (first, second) => moment(second.end).diff(moment(first.end)),
@@ -37,17 +41,6 @@ export const TimeLineComponent = (props) => {
     // }
   }
 
-  const groups = useMemo(() => {
-    if (!items.length) return []
-    const names = items.map((el) => el.group)
-    return [...new Set(names)].map((el, index) => {
-      return {
-        id: el,
-        content: el
-      }
-    })
-  }, [items])
-
   const handleCancel = () => {
     // setData([])
     // reader.abort()
@@ -56,10 +49,6 @@ export const TimeLineComponent = (props) => {
   }
 
   const handleDownload = () => {
-    // const fileItems = items.map((el) => {
-    //   const { id, content, ...obj } = el
-    //   return obj
-    // })
     const fileItems = items.map((el) => {
       const { id, content, title, ...obj } = el
       return {
@@ -125,8 +114,21 @@ export const TimeLineComponent = (props) => {
     setItem(items.find((el) => el.id === props.item));
   }
 
+  const filteredItems = items.filter((el) => filters.onlyRefill ? (!!el.refillDate && !moment().isAfter(el.refillDate)) : el)
+  const groups = useMemo(() => {
+    if (!items.length) return []
+    const names = filteredItems.map((el) => el.group)
+    return [...new Set(names)].map((el, index) => {
+      return {
+        id: el,
+        content: el
+      }
+    })
+  }, [filteredItems])
+
   return (
     <div className='wrapper'>
+      <Filters setFilters={setFilters} />
       <div className='timeline'>
         <div className='buttons-menu'>
           <Upload
@@ -142,9 +144,9 @@ export const TimeLineComponent = (props) => {
           {/*<button name="button" onClick={handleCancel}>Сброс</button>*/}
           {/*<button name="button" onClick={handleDownload}>Скачать</button>*/}
         </div>
-        {items.length
+        {filteredItems.length
           ? <Timeline
-              items={items}
+              items={filteredItems}
               options={options}
               clickHandler={clickHandler}
               groups={groups}
